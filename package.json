@@ -5,14 +5,16 @@
   "author": "Halina Balys",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start",
     "test": "jest"
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxtjs/composition-api": "^0.32.0",
+    "axios": "^0.26.0",
     "node-sass": "^6",
     "nuxt": "^2.0.0",
     "sass-loader": "^10"
