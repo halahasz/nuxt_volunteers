@@ -1,6 +1,9 @@
 <template>
   <div class="section-page">
     <h1>All Volunteers</h1>
+    <button class="button button__plus">
+      <img src="~/assets/img/icons/plus.svg" alt class="button__icon" />
+    </button>
     <table class="table">
       <thead>
         <tr>
@@ -20,7 +23,11 @@
           <td>{{ volunteer.email }}</td>
           <td>{{ volunteer.date }}</td>
           <td>{{ volunteer.section }}</td>
-          <td>action</td>
+          <td>
+            <button class="button">
+              <img src="~/assets/img/icons/pen.svg" alt class="button__icon" />
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,18 +38,13 @@
 import { defineComponent, reactive } from "@nuxtjs/composition-api";
 import CONFIG from "@/api/baseConfig";
 import axios from "axios";
+import Volunteer from "@/types/Volunteer";
+import { useStore } from "../store";
+import { DateTime } from "luxon";
 
 export default defineComponent({
   setup() {
-    interface Volunteer {
-      age: string;
-      date: string;
-      email: string;
-      name: string;
-      photo: string;
-      section: string;
-    }
-    const volunteers = reactive<Volunteer[]>([]);
+    const volunteers = useStore().state.volunteers;
     const headers = [
       "Photo",
       "Name",
@@ -78,6 +80,9 @@ h1 {
 }
 .section-page {
   text-align: center;
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .table {
   max-width: 1000px;
@@ -125,6 +130,27 @@ h1 {
   td {
     padding: 20px 15px;
     background: #fff;
+  }
+}
+.button {
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #afded9;
+  &__icon {
+    max-width: 15px;
+  }
+  &__plus {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    padding: 10px 8px 8px;
+    background-color: #e8d1f3;
+    width: 39px;
+    height: 39px;
   }
 }
 </style>

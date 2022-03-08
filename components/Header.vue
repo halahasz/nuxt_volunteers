@@ -108,17 +108,27 @@ export default defineComponent({
     margin: 0;
   }
   &__login {
-    margin-right: 40px;
+    margin-right: 10px;
     font-size: 14px;
     font-weight: 600;
     outline: none;
+    border: none;
+    cursor: pointer;
   }
   &__register {
     font-weight: 600;
     outline: none;
+    margin-right: 20px;
+    border: none;
+    cursor: pointer;
   }
   &__button {
     outline: none;
+    border: none;
+    cursor: pointer;
+    img {
+      max-width: 20px;
+    }
   }
 }
 .header-container {
