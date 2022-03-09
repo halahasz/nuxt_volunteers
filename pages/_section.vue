@@ -15,7 +15,7 @@
       <tbody>
         <tr
           v-for="volunteer in volunteers"
-          :key="volunteer.name"
+          :key="volunteer.email"
           :class="volunteer.section"
         >
           <td>{{ volunteer.photo }}</td>
@@ -38,13 +38,13 @@
 import { defineComponent, reactive } from "@nuxtjs/composition-api";
 import CONFIG from "@/api/baseConfig";
 import axios from "axios";
-import Volunteer from "@/types/Volunteer";
 import { useStore } from "../store";
 import { DateTime } from "luxon";
 
 export default defineComponent({
   setup() {
-    const volunteers = useStore().state.volunteers;
+    const store = useStore();
+    const volunteers = store.store.getState().volunteers;
     const headers = [
       "Photo",
       "Name",
@@ -53,19 +53,19 @@ export default defineComponent({
       "Section",
       "Actions",
     ];
-
-    const fetchVolunteers = async () => {
-      try {
-        await axios.get(CONFIG.BASE_URL).then((result) => {
-          for (const key in result.data) {
-            volunteers.push({ ...result.data[key], id: key });
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchVolunteers();
+    console.log(volunteers);
+    // const fetchVolunteers = async () => {
+    //   try {
+    //     await axios.get(CONFIG.BASE_URL).then((result) => {
+    //       for (const key in result.data) {
+    //         volunteers.push({ ...result.data[key], id: key });
+    //       }
+    //     });
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // fetchVolunteers();
     return { headers, volunteers };
   },
 });

@@ -3,14 +3,12 @@
     "name": "index",
     "path": "/",
     "component": "/Users/halina/PROJECTS/nuxt_volunteers/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_0f62a686"
+    "chunkName": "pages/index"
   },
   {
     "name": "section",
     "path": "/:section",
     "component": "/Users/halina/PROJECTS/nuxt_volunteers/pages/_section.vue",
-    "chunkName": "pages/_section",
-    "_name": "_55774ba2"
+    "chunkName": "pages/_section"
   }
 ]
