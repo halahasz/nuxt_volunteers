@@ -19,15 +19,17 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('../store/_index.ts'), '_index.ts')
+  resolveStoreModules(require('../store/firebase.js'), 'firebase.js')
+  resolveStoreModules(require('../store/old_store.ts'), 'old_store.ts')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '../store/_index.ts',
+      '../store/firebase.js',
       '../store/index.ts',
+      '../store/old_store.ts',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

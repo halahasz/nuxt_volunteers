@@ -1,6 +1,9 @@
 <template>
   <div class="section-page">
     <h1>All Volunteers</h1>
+    <dialog open>
+      <h2>Add Volunteer</h2>
+    </dialog>
     <button class="button button__plus">
       <img src="~/assets/img/icons/plus.svg" alt class="button__icon" />
     </button>
@@ -15,10 +18,9 @@
       <tbody>
         <tr
           v-for="volunteer in volunteers"
-          :key="volunteer.email"
+          :key="volunteer.section"
           :class="volunteer.section"
         >
-          <td>{{ volunteer.photo }}</td>
           <td>{{ volunteer.name }}</td>
           <td>{{ volunteer.email }}</td>
           <td>{{ volunteer.date }}</td>
@@ -35,43 +37,52 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "@nuxtjs/composition-api";
+import * as firebase from "firebase/app";
+import { firebaseConfig } from "@/store/firebase";
+import "firebase/firestore";
+import { defineComponent, ref, reactive } from "@nuxtjs/composition-api";
 import CONFIG from "@/api/baseConfig";
 import axios from "axios";
-import { useStore } from "../store";
-import { DateTime } from "luxon";
+// import { DateTime } from "luxon";
+import Volunteer from "~/types/Volunteer";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const volunteers = store.store.getState().volunteers;
-    const headers = [
-      "Photo",
-      "Name",
-      "E-mail",
-      "Joining date",
-      "Section",
-      "Actions",
-    ];
-    console.log(volunteers);
-    // const fetchVolunteers = async () => {
-    //   try {
-    //     await axios.get(CONFIG.BASE_URL).then((result) => {
-    //       for (const key in result.data) {
-    //         volunteers.push({ ...result.data[key], id: key });
-    //       }
-    //     });
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fetchVolunteers();
+    const headers = ["Name", "E-mail", "Joining date", "Section", "Actions"];
+    let volunteers = reactive<Volunteer[]>([]);
+
+    const fetchVolunteers = async () => {
+      try {
+        await axios.get(CONFIG.BASE_URL).then((result) => {
+          for (const key in result.data) {
+            volunteers.push({ ...result.data[key], id: key });
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchVolunteers();
+
     return { headers, volunteers };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+dialog {
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  width: 600px;
+  h2 {
+    font-size: 20px;
+  }
+}
 h1 {
   padding: 40px 20px 20px;
   margin: 0;

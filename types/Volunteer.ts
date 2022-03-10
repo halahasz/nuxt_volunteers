@@ -3,7 +3,6 @@ interface Volunteer {
   date: string;
   email: string;
   name: string;
-  photo: string;
   section: string;
   id?: string;
 }

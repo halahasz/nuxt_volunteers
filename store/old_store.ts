@@ -18,10 +18,11 @@ class Store {
     return readonly(this.state);
   }
 
-  // async createVolunteer(volunteer: Volunteer) {
-  //   const response = await axios.post<Volunteer>(CONFIG.BASE_URL);
-  //   console.log(response);
-  // }
+  async createVolunteer(volunteer: Volunteer) {
+    const response = await axios.post<Volunteer>(CONFIG.BASE_URL);
+    console.log(response);
+  }
+
   async fetchVolunteers() {
     const response = await axios.get<Volunteer[]>(CONFIG.BASE_URL);
     const volunteersState: Volunteer[] = [];
